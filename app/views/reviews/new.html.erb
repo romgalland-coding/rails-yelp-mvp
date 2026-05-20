@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <%= link_to restaurant_path(@restaurant), class: "text-decoration-none text-muted small mb-3 d-inline-block" do %>
+        <i class="fa-solid fa-arrow-left me-1"></i> Back to <%= @restaurant.name %>
+      <% end %>
+
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4 p-md-5">
+          <div class="text-center mb-4">
+            <div class="d-inline-flex align-items-center justify-content-center bg-warning bg-opacity-25 rounded-circle mb-3" style="width: 60px; height: 60px;">
+              <i class="fa-solid fa-star fa-lg text-warning"></i>
+            </div>
+            <h2 class="fw-bold mb-1">Leave a review</h2>
+            <p class="text-muted small mb-0">How was your experience at <strong><%= @restaurant.name %></strong>?</p>
+          </div>
+
+          <%= simple_form_for([@restaurant, @review]) do |f| %>
+            <%= f.error_notification %>
+            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+            <div class="mb-3">
+              <%= f.input :content, as: :text, input_html: { class: "form-control", rows: 4, placeholder: "Tell us about your experience..." } %>
+            </div>
+            <div class="mb-4">
+              <%= f.input :rating, collection: (0..5), input_html: { class: "form-select form-select-lg" } %>
+            </div>
+
+            <div class="d-grid">
+              <%= f.button :submit, "Submit review", class: "btn btn-warning btn-lg fw-semibold" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
